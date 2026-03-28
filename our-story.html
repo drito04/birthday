@@ -93,7 +93,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .recipe-name { font-family:'Cormorant Garamond',serif; font-size:0.85rem; color:var(--cream); font-style:italic; }
 .recipe-note { font-size:0.65rem; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
 
-/* MUSIC / PLAYLISTHey, Cortana. Hey, Cortana. Hey, Cortana. Hey, Cortana. Huh. Hey, Cortana. Hey, Cortana. Hey. Hey, Cortana. Hey, Cortana. Hey, Cortana. Hey Cortana, change the password to change. Bolchi bolsa Dhadko. Hey, Cortana.  */
+/* MUSIC / PLAYLIST */
 .music-art { background:linear-gradient(150deg,#0a0d1a 0%,#12102a 50%,#0d0a14 100%); height:100%; display:flex; flex-direction:column; position:relative; overflow:hidden; }
 .vinyl-deco { position:absolute; top:14px; right:14px; width:52px; height:52px; border-radius:50%; background:conic-gradient(#1a1a2e 0deg,#16213e 90deg,#0f3460 180deg,#1a1a2e 270deg,#16213e 360deg); box-shadow:0 0 16px rgba(201,169,110,0.15); display:flex; align-items:center; justify-content:center; z-index:2; }
 .vinyl-deco.spinning { animation:spin 5s linear infinite; }
@@ -123,9 +123,11 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .track-row:hover .track-play-btn, .track-row.active .track-play-btn { opacity:1; }
 .track-play-btn svg { fill:var(--gold); width:8px; height:8px; }
 
-/* NOW PLAYING BAR */
+/* NOW PLAYING BAR (Updated with Progress Line) */
 .now-playing-bar { position:fixed; bottom:0; left:0; right:0; z-index:500; background:rgba(10,8,6,0.97); backdrop-filter:blur(20px); border-top:1px solid rgba(201,169,110,0.15); padding:10px 24px; display:flex; align-items:center; gap:16px; transform:translateY(100%); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
 .now-playing-bar.visible { transform:translateY(0); }
+.np-progress-bg { position:absolute; top:0; left:0; right:0; height:3px; background:rgba(201,169,110,0.15); cursor:pointer; }
+.np-progress-fill { height:100%; width:0%; background:var(--gold); pointer-events:none; transition:width 0.1s linear; }
 .np-eq { display:flex; gap:2px; align-items:flex-end; height:18px; }
 .np-eq span { width:3px; background:var(--gold); border-radius:1px; animation:eqBar var(--d,0.9s) infinite alternate ease-in-out; animation-delay:var(--dl,0s); }
 .now-playing-bar.paused .np-eq span { animation-play-state:paused; }
@@ -185,9 +187,9 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 <script>
 const MY_PLAYLIST = [
   {
-    title:  "Ordinary",
+    title:  "La Vie en Rose",
     artist: "Édith Piaf",
-    src:    "https://www.dropbox.com/scl/fi/0ehr7ji0ab779hr7gn6w7/Alex-Warren-Ordinary-Official-Video.mp3?rlkey=e23af9hh6mlgr8p3kdq29417h&st=iudj603s&raw=1",
+    src:    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     note:   "This one always makes me think of you ✨"
   },
   {
@@ -199,8 +201,7 @@ const MY_PLAYLIST = [
   {
     title:  "Finding Her",
     artist: "Frank Sinatra",
-    // Fixed URL format for direct file streaming
-    src:    "https://www.dropbox.com/scl/fi/m70cn69may7s9nnjbxi8d/Finding-Her-Official-Video-_-Kushagra-Vanshika-Kashyap-Bharat-UR-Debut.mp3?rlkey=zb01jd388o0e4geo88d9ois7u&st=ov75sjol&raw=1",
+    src:    "https://drive.google.com/uc?export=download&id=1UxiCmz31Mv8LA0KaccdCdclwYFvCs02e",
     note:   "Our road trip anthem 🚗"
   },
   {
@@ -242,6 +243,10 @@ const MY_PLAYLIST = [
 </div>
 
 <div class="now-playing-bar" id="nowPlayingBar">
+  <div class="np-progress-bg" id="npProgressBg" onclick="seekAudio(event)">
+    <div class="np-progress-fill" id="npProgressFill"></div>
+  </div>
+  
   <div class="np-eq">
     <span style="--d:0.7s;--dl:0s"></span>
     <span style="--d:1.0s;--dl:0.1s"></span>
@@ -588,6 +593,23 @@ const audioPlayer = document.getElementById('audio-player');
 // Auto-advance when a track ends
 audioPlayer.addEventListener('ended', () => nextTrack());
 
+// Update Progress Bar
+audioPlayer.addEventListener('timeupdate', () => {
+  if (!audioPlayer.duration) return;
+  const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+  document.getElementById('npProgressFill').style.width = percent + '%';
+});
+
+// Click to seek Audio
+function seekAudio(e) {
+  if (!audioPlayer.duration) return;
+  const bg = document.getElementById('npProgressBg');
+  const rect = bg.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const percent = clickX / rect.width;
+  audioPlayer.currentTime = percent * audioPlayer.duration;
+}
+
 // Sync visual state with actual audio events
 audioPlayer.addEventListener('play',  () => setPlayingVisuals(true));
 audioPlayer.addEventListener('pause', () => setPlayingVisuals(false));
@@ -647,6 +669,13 @@ function nextTrack(){
   playTrack((currentIdx + 1) % MY_PLAYLIST.length);
 }
 
+function prevTrack(){
+  if(currentIdx < 0) return;
+  let prev = currentIdx - 1;
+  if(prev < 0) prev = MY_PLAYLIST.length - 1;
+  playTrack(prev);
+}
+
 function stopPlaylist(){
   audioPlayer.pause();
   audioPlayer.src = '';
@@ -657,6 +686,23 @@ function stopPlaylist(){
   setJazzVol(JAZZ_VOL, 1.5);
   document.getElementById('jazzPill').classList.add('visible');
 }
+
+// Global Keyboard Navigation
+document.addEventListener('keydown', (e) => {
+  // Only trigger if a track is actively selected
+  if (currentIdx >= 0) {
+    if (e.code === 'Space') {
+      e.preventDefault(); // Prevents the page from scrolling down
+      togglePlayPause();
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault();
+      nextTrack();
+    } else if (e.code === 'ArrowLeft') {
+      e.preventDefault();
+      prevTrack();
+    }
+  }
+});
 </script>
 </body>
 </html>
