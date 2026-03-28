@@ -25,7 +25,6 @@ body::before { content:''; position:fixed; inset:0; background-image:url("data:i
 
 section { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
 
-/* HERO */
 #hero { background:var(--dark); flex-direction:column; text-align:center; }
 .stars { position:absolute; inset:0; }
 .star { position:absolute; background:white; border-radius:50%; animation:twinkle var(--dur,3s) infinite alternate; }
@@ -42,7 +41,6 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--gold),transparent); animation:scrollLine 1.5s infinite; }
 @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
 
-/* CHAPTERS */
 .chapter { padding:6rem 2rem; flex-direction:column; }
 .chapter-inner { max-width:920px; width:100%; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
 .chapter-inner.reverse { direction:rtl; }
@@ -64,10 +62,9 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .visual-panel.visible { opacity:1; transform:scale(1); }
 .art-frame { aspect-ratio:3/4; border-radius:2px; position:relative; overflow:hidden; border:1px solid rgba(201,169,110,0.2); }
 
-#travel { background:#080d10; } #film { background:#0d0808; } #food { background:#0d0805; } #music { background:#080810; }
+#travel { background:#080d10; } #film { background:#0d0808; } #food { background:#0d0805; } #music { background:#080810; } #date-planner { background:#100c0a; }
 .section-number { position:absolute; font-family:'Cormorant Garamond',serif; font-size:20vw; font-weight:300; color:rgba(255,255,255,0.02); top:50%; right:-2vw; transform:translateY(-50%); pointer-events:none; line-height:1; }
 
-/* TRAVEL */
 .travel-art { background:linear-gradient(160deg,#0d1f2d 0%,#1a3a4a 40%,#0d2233 70%,#162030 100%); height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
 .globe-svg { width:75%; height:auto; opacity:0.25; }
 .pin-map { width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center; }
@@ -78,13 +75,11 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .pin-tooltip { position:absolute; bottom:35px; background:rgba(13,10,8,0.95); border:1px solid rgba(201,169,110,0.3); padding:8px 14px; border-radius:2px; white-space:nowrap; font-size:11px; letter-spacing:1px; color:var(--gold); opacity:0; transition:opacity 0.2s; pointer-events:none; }
 .pin:hover .pin-tooltip { opacity:1; }
 
-/* FILM */
 .film-art { background:linear-gradient(135deg,#1a0a0a 0%,#2d1010 50%,#1a1205 100%); height:100%; display:flex; flex-direction:column; overflow:hidden; }
 .film-strip { display:flex; flex-direction:column; gap:3px; padding:10px; height:100%; }
 .film-frame { flex:1; border:1px solid rgba(201,169,110,0.15); border-radius:1px; background:rgba(201,169,110,0.03); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:0.7rem; color:rgba(201,169,110,0.3); letter-spacing:1px; cursor:pointer; transition:all 0.3s; padding:0.5rem; text-align:center; }
 .film-frame:hover { background:rgba(201,169,110,0.08); color:rgba(201,169,110,0.8); border-color:rgba(201,169,110,0.4); }
 
-/* FOOD */
 .food-art { background:radial-gradient(circle at 60% 40%,#2d1a08 0%,#1a0e05 60%,#0d0805 100%); height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
 .recipe-cards { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; padding:20px; }
 .recipe-card { width:100%; padding:12px 16px; border:1px solid rgba(201,169,110,0.15); border-radius:2px; background:rgba(201,169,110,0.03); cursor:pointer; transition:all 0.3s; display:flex; align-items:center; gap:12px; }
@@ -93,7 +88,6 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .recipe-name { font-family:'Cormorant Garamond',serif; font-size:0.85rem; color:var(--cream); font-style:italic; }
 .recipe-note { font-size:0.65rem; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
 
-/* MUSIC / PLAYLIST */
 .music-art { background:linear-gradient(150deg,#0a0d1a 0%,#12102a 50%,#0d0a14 100%); height:100%; display:flex; flex-direction:column; position:relative; overflow:hidden; }
 .vinyl-deco { position:absolute; top:14px; right:14px; width:52px; height:52px; border-radius:50%; background:conic-gradient(#1a1a2e 0deg,#16213e 90deg,#0f3460 180deg,#1a1a2e 270deg,#16213e 360deg); box-shadow:0 0 16px rgba(201,169,110,0.15); display:flex; align-items:center; justify-content:center; z-index:2; }
 .vinyl-deco.spinning { animation:spin 5s linear infinite; }
@@ -123,7 +117,6 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .track-row:hover .track-play-btn, .track-row.active .track-play-btn { opacity:1; }
 .track-play-btn svg { fill:var(--gold); width:8px; height:8px; }
 
-/* NOW PLAYING BAR (Updated with Progress Line) */
 .now-playing-bar { position:fixed; bottom:0; left:0; right:0; z-index:500; background:rgba(10,8,6,0.97); backdrop-filter:blur(20px); border-top:1px solid rgba(201,169,110,0.15); padding:10px 24px; display:flex; align-items:center; gap:16px; transform:translateY(100%); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
 .now-playing-bar.visible { transform:translateY(0); }
 .np-progress-bg { position:absolute; top:0; left:0; right:0; height:3px; background:rgba(201,169,110,0.15); cursor:pointer; }
@@ -142,7 +135,6 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .np-close { width:28px; height:28px; border-radius:50%; border:1px solid rgba(201,169,110,0.25); background:transparent; cursor:pointer; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:all 0.2s; font-size:13px; font-family:'Jost',sans-serif; }
 .np-close:hover { border-color:var(--gold); color:var(--gold); }
 
-/* JAZZ PILL */
 .jazz-pill { position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:400; background:rgba(10,8,6,0.88); backdrop-filter:blur(12px); border:1px solid rgba(201,169,110,0.2); border-radius:40px; padding:7px 16px; display:flex; align-items:center; gap:10px; opacity:0; transition:opacity 0.6s; pointer-events:none; }
 .jazz-pill.visible { opacity:1; }
 .jazz-waves { display:flex; gap:2px; align-items:center; height:12px; }
@@ -150,7 +142,23 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 @keyframes jazzWave { from{height:2px;opacity:0.3} to{height:12px;opacity:1} }
 .jazz-label { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
 
-/* FINALE */
+.date-art { background: linear-gradient(135deg, #100a12 0%, #1a1216 100%); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
+.step-view { display: none; width: 100%; animation: fadeIn 0.4s forwards; }
+.step-view.active { display: block; }
+.date-q { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); margin-bottom: 1.5rem; line-height: 1.2; }
+.date-options { display: flex; flex-direction: column; gap: 12px; }
+.date-btn { background: rgba(201,169,110,0.03); border: 1px solid rgba(201,169,110,0.25); color: var(--cream); padding: 14px; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); border-radius: 2px; }
+.date-btn:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(201,169,110,0.05); }
+
+.custom-row { display: flex; gap: 8px; margin-top: 4px; }
+.custom-input { flex: 1; background: rgba(201,169,110,0.05); border: 1px solid rgba(201,169,110,0.25); color: var(--cream); padding: 12px; font-family: 'Jost', sans-serif; font-size: 0.85rem; border-radius: 2px; outline: none; transition: border-color 0.3s; }
+.custom-input:focus { border-color: var(--gold); }
+.custom-input::placeholder { color: rgba(201,169,110,0.4); }
+
+.date-result-card { border: 1px dashed rgba(201,169,110,0.4); padding: 24px; background: rgba(0,0,0,0.3); border-radius: 2px; }
+.date-result-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--rose); margin-bottom: 12px; }
+.date-result-text { color: var(--gold); line-height: 1.8; font-size: 0.95rem; font-style: italic; }
+
 #finale { background:radial-gradient(ellipse at center,#1a1005 0%,#0d0a08 60%); flex-direction:column; text-align:center; }
 .finale-content { position:relative; z-index:2; padding:2rem; max-width:650px; margin:0 auto; }
 .finale-eyebrow { font-size:10px; letter-spacing:6px; text-transform:uppercase; color:var(--gold); margin-bottom:2rem; opacity:0; transition:opacity 1s; }
@@ -228,6 +236,7 @@ const MY_PLAYLIST = [
   <div class="nav-dot" onclick="scrollToSection('film')"></div>
   <div class="nav-dot" onclick="scrollToSection('food')"></div>
   <div class="nav-dot" onclick="scrollToSection('music')"></div>
+  <div class="nav-dot" onclick="scrollToSection('date-planner')"></div>
   <div class="nav-dot" onclick="scrollToSection('finale')"></div>
 </nav>
 
@@ -404,6 +413,36 @@ const MY_PLAYLIST = [
   </div>
 </section>
 
+<section id="date-planner" class="chapter">
+  <div class="section-number">05</div>
+  <div class="chapter-inner">
+    <div class="chapter-text-col">
+      <p class="chapter-label">Chapter Five</p>
+      <h2 class="chapter-title">Design Our<br><em>Next Date</em></h2>
+      <div class="divider"></div>
+      <p class="chapter-text">I've got a few ideas, but the best plans are the ones you choose. Answer a few quick questions to generate your perfect birthday date itinerary.</p>
+      <p class="chapter-quote">"Your wish is my command."</p>
+    </div>
+    <div class="visual-panel">
+      <div class="art-frame">
+        <div class="date-art">
+          <div class="step-view active" id="dateQuestionView">
+            <div class="date-q" id="dqText">Loading...</div>
+            <div class="date-options" id="dateOptionsContainer"></div>
+          </div>
+          <div class="step-view" id="dateResultView">
+            <div class="date-result-card">
+              <div class="date-result-title">Itinerary Locked 🔒</div>
+              <div class="date-result-text" id="dateResultText"></div>
+              <button class="date-btn" style="margin-top:20px; font-size:0.75rem; padding: 8px 16px;" onclick="initDateTree()">Plan a different one</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="finale">
   <div class="hearts-container" id="heartsContainer"></div>
   <div class="finale-content">
@@ -414,7 +453,6 @@ const MY_PLAYLIST = [
 </section>
 
 <script>
-// ─── STARS ───────────────────────────────────
 (()=>{
   const el=document.getElementById('stars');
   for(let i=0;i<180;i++){
@@ -425,19 +463,16 @@ const MY_PLAYLIST = [
   }
 })();
 
-// ─── CURSOR ──────────────────────────────────
 const curEl=document.getElementById('cursor'),rngEl=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curEl.style.left=mx+'px';curEl.style.top=my+'px';});
 (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;rngEl.style.left=rx+'px';rngEl.style.top=ry+'px';requestAnimationFrame(loop);})();
 
-// ─── SCROLL ANIMATIONS ───────────────────────
 document.querySelectorAll('.chapter-label,.chapter-title,.chapter-text,.chapter-quote,.divider,.visual-panel,.finale-eyebrow,.finale-message,.finale-sig').forEach(el=>{
   new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('visible');},{threshold:0.15}).observe(el);
 });
 
-// ─── NAV DOTS ────────────────────────────────
-const sectionIds=['hero','travel','film','food','music','finale'];
+const sectionIds=['hero','travel','film','food','music','date-planner','finale'];
 const dotEls=document.querySelectorAll('.nav-dot');
 window.addEventListener('scroll',()=>{
   const mid=window.scrollY+window.innerHeight/2;
@@ -451,12 +486,10 @@ window.addEventListener('scroll',()=>{
 });
 function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 
-// ─── TOAST ───────────────────────────────────
 const toastEl=document.getElementById('toast');
 let tt;
 function showToast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),3000);}
 
-// ─── HEARTS ──────────────────────────────────
 let heartsStarted=false;
 new IntersectionObserver(([e])=>{
   if(e.isIntersecting&&!heartsStarted){heartsStarted=true;launchHearts();}
@@ -473,7 +506,6 @@ function launchHearts(){
   },200);
 }
 
-// ─── AMBIENT JAZZ (Web Audio API) ────────────
 let audioCtx,masterGain,chordTimer,melodyTimer;
 let audioStarted=false;
 const JAZZ_VOL=0.07;
@@ -518,7 +550,6 @@ function startAmbientJazz(){
     lpf.connect(dry); lpf.connect(reverb); reverb.connect(wet);
     dry.connect(masterGain); wet.connect(masterGain); masterGain.connect(audioCtx.destination);
 
-    // Fmaj7 → Em7 → Dm7 → G7
     const chords=[
       [87.31,174.61,220,261.63,329.63],
       [82.41,164.81,196,246.94,293.66],
@@ -556,10 +587,8 @@ function beginStory(){
   startAmbientJazz();
   scrollToSection('travel');
 }
-// Also start on first scroll
 window.addEventListener('scroll',()=>startAmbientJazz(),{once:true});
 
-// ─── BUILD PLAYLIST UI ───────────────────────
 let currentIdx=-1,playing=false;
 
 function buildPlaylist(){
@@ -587,20 +616,16 @@ function buildPlaylist(){
 }
 buildPlaylist();
 
-// ─── HTML5 AUDIO ENGINE ───────────
 const audioPlayer = document.getElementById('audio-player');
 
-// Auto-advance when a track ends
 audioPlayer.addEventListener('ended', () => nextTrack());
 
-// Update Progress Bar
 audioPlayer.addEventListener('timeupdate', () => {
   if (!audioPlayer.duration) return;
   const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
   document.getElementById('npProgressFill').style.width = percent + '%';
 });
 
-// Click to seek Audio
 function seekAudio(e) {
   if (!audioPlayer.duration) return;
   const bg = document.getElementById('npProgressBg');
@@ -610,7 +635,6 @@ function seekAudio(e) {
   audioPlayer.currentTime = percent * audioPlayer.duration;
 }
 
-// Sync visual state with actual audio events
 audioPlayer.addEventListener('play',  () => setPlayingVisuals(true));
 audioPlayer.addEventListener('pause', () => setPlayingVisuals(false));
 audioPlayer.addEventListener('error', () => {
@@ -627,14 +651,14 @@ function setPlayingVisuals(isPlaying){
   if(isPlaying){
     bar.classList.remove('paused');
     vinyl.classList.add('spinning');
-    icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // pause icon
+    icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
     if(currentIdx >= 0) document.getElementById(`tr${currentIdx}`)?.classList.remove('paused');
     setJazzVol(0.012, 1.5);
     document.getElementById('jazzPill').classList.remove('visible');
   } else {
     bar.classList.add('paused');
     vinyl.classList.remove('spinning');
-    icon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // play icon
+    icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
     if(currentIdx >= 0) document.getElementById(`tr${currentIdx}`)?.classList.add('paused');
   }
 }
@@ -646,11 +670,9 @@ function playTrack(idx){
   currentIdx = idx;
   const s    = MY_PLAYLIST[idx];
 
-  // Set source and play
   audioPlayer.src = s.src;
   audioPlayer.play().catch(() => showToast('⚠️ Tap/click again to start playback'));
 
-  // Update Now Playing bar
   document.getElementById('npTitle').textContent  = s.title;
   document.getElementById('npArtist').textContent = s.artist;
   document.getElementById('npNote').textContent   = s.note || '';
@@ -687,12 +709,10 @@ function stopPlaylist(){
   document.getElementById('jazzPill').classList.add('visible');
 }
 
-// Global Keyboard Navigation
 document.addEventListener('keydown', (e) => {
-  // Only trigger if a track is actively selected
   if (currentIdx >= 0) {
     if (e.code === 'Space') {
-      e.preventDefault(); // Prevents the page from scrolling down
+      e.preventDefault();
       togglePlayPause();
     } else if (e.code === 'ArrowRight') {
       e.preventDefault();
@@ -703,6 +723,196 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+const dateTree = {
+  start: {
+    q: "What's the vibe for tonight?",
+    options: [
+      { text: "Stay In", next: "stayInFood" },
+      { text: "Go Out", next: "goOutFood" }
+    ]
+  },
+  stayInFood: {
+    q: "What are we doing for food?",
+    options: [
+      { text: "Order food", next: "orderFood" },
+      { text: "Cook ourself", next: "cookFood" }
+    ]
+  },
+  orderFood: {
+    q: "What are we ordering?",
+    options: [
+      { text: "Indo-Chinese", next: "stayInActivity" },
+      { text: "North-Indian", next: "stayInActivity" },
+      { text: "South-Indian", next: "stayInActivity" },
+      { text: "Continental", next: "stayInActivity" }
+    ],
+    custom: { next: "stayInActivity", placeholder: "Choose your own food..." }
+  },
+  cookFood: {
+    q: "What are we cooking?",
+    options: [
+      { text: "Indo-Chinese", next: "stayInActivity" },
+      { text: "Chicken Thali", next: "stayInActivity" },
+      { text: "Burger etc", next: "stayInActivity" },
+      { text: "Italian", next: "stayInActivity" }
+    ],
+    custom: { next: "stayInActivity", placeholder: "Choose your own recipe..." }
+  },
+  stayInActivity: {
+    q: "What's the main activity?",
+    options: [
+      { text: "Movie Time", next: "movieTime" },
+      { text: "Fun Time", next: "funTime" }
+    ]
+  },
+  movieTime: {
+    q: "Which movie?",
+    options: [
+      { text: "Eternal Sunshine of the Spotless Mind", next: "stayInAfter" },
+      { text: "La La Land", next: "stayInAfter" },
+      { text: "When Harry met Sally", next: "stayInAfter" },
+      { text: "Mr. & Mrs. Smith", next: "stayInAfter" },
+      { text: "Beauty and the Beast", next: "stayInAfter" }
+    ],
+    custom: { next: "stayInAfter", placeholder: "Type a movie title..." }
+  },
+  funTime: {
+    q: "What kind of fun?",
+    options: [
+      { text: "Massage", next: "stayInAfter" },
+      { text: "Play UNO", next: "stayInAfter" },
+      { text: "Clay ART", next: "stayInAfter" }
+    ],
+    custom: { next: "stayInAfter", placeholder: "Suggest an activity..." }
+  },
+  stayInAfter: {
+    q: "How are we ending the night?",
+    options: [
+      { text: "Stay in and cuddle", result: true },
+      { text: "Go out for walk", result: true }
+    ],
+    custom: { result: true, placeholder: "Type your ideal ending..." }
+  },
+  goOutFood: {
+    q: "Where are we eating?",
+    options: [
+      { text: "Fancy Restaurant", next: "fancyFood" },
+      { text: "Authentic food", next: "authenticFood" }
+    ]
+  },
+  fancyFood: {
+    q: "What kind of fancy?",
+    options: [
+      { text: "Italian", next: "goOutActivity" },
+      { text: "Mexican", next: "goOutActivity" },
+      { text: "Middle Eastern", next: "goOutActivity" }
+    ],
+    custom: { next: "goOutActivity", placeholder: "Choose your own..." }
+  },
+  authenticFood: {
+    q: "What kind of authentic food?",
+    options: [
+      { text: "Chinese", next: "goOutActivity" },
+      { text: "Bengali", next: "goOutActivity" }
+    ],
+    custom: { next: "goOutActivity", placeholder: "Choose your own..." }
+  },
+  goOutActivity: {
+    q: "Where to next?",
+    options: [
+      { text: "Rajbari", result: true },
+      { text: "Science city", result: true },
+      { text: "Surprise me", result: true },
+      { text: "Arcade", result: true }
+    ],
+    custom: { result: true, placeholder: "Choose your own destination..." }
+  }
+};
+
+let currentNode = 'start';
+let datePath = [];
+
+function renderDateNode(nodeId) {
+  const node = dateTree[nodeId];
+  const qView = document.getElementById('dateQuestionView');
+  const container = document.getElementById('dateOptionsContainer');
+  
+  qView.style.animation = 'none';
+  void qView.offsetWidth;
+  qView.style.animation = 'fadeIn 0.4s forwards';
+  
+  document.getElementById('dqText').textContent = node.q;
+  
+  container.innerHTML = '';
+  node.options.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.className = 'date-btn';
+    btn.textContent = choice.text;
+    btn.onclick = () => handleDateChoice(choice.text, choice.next, choice.result);
+    container.appendChild(btn);
+  });
+
+  if (node.custom) {
+    const row = document.createElement('div');
+    row.className = 'custom-row';
+    
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'customDateInput';
+    input.className = 'custom-input';
+    input.placeholder = node.custom.placeholder || 'Choose your own...';
+    
+    const btn = document.createElement('button');
+    btn.className = 'date-btn';
+    btn.style.padding = '12px 20px';
+    btn.textContent = '➔';
+    
+    const submitCustom = () => {
+      const val = input.value.trim();
+      if (!val) {
+        showToast('Please type your choice first!');
+        return;
+      }
+      handleDateChoice(val, node.custom.next, node.custom.result);
+    };
+
+    btn.onclick = submitCustom;
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') submitCustom();
+    });
+
+    row.appendChild(input);
+    row.appendChild(btn);
+    container.appendChild(row);
+  }
+}
+
+function handleDateChoice(text, nextNodeId, isResult) {
+  datePath.push(text);
+
+  if (!isResult) {
+    currentNode = nextNodeId;
+    renderDateNode(currentNode);
+  } else {
+    let finalItinerary = "Our Perfect Date: " + datePath.join(" ➔ ");
+    
+    document.getElementById('dateQuestionView').classList.remove('active');
+    document.getElementById('dateResultText').textContent = finalItinerary;
+    document.getElementById('dateResultView').classList.add('active');
+    showToast('💌 Itinerary saved and sent to my brain!');
+  }
+}
+
+function initDateTree() {
+  currentNode = 'start';
+  datePath = [];
+  document.getElementById('dateResultView').classList.remove('active');
+  document.getElementById('dateQuestionView').classList.add('active');
+  renderDateNode(currentNode);
+}
+
+initDateTree();
 </script>
 </body>
 </html>
