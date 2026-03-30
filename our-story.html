@@ -23,9 +23,9 @@ body::before { content:''; position:fixed; inset:0; background-image:url("data:i
 .nav-dot { width:6px; height:6px; border-radius:50%; background:var(--muted); cursor:pointer; transition:all 0.3s; }
 .nav-dot.active { background:var(--gold); box-shadow:0 0 10px rgba(201,169,110,0.6); transform:scale(1.5); }
 
-section { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+section { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; }
 
-#hero { background:var(--dark); flex-direction:column; text-align:center; }
+#hero { background:var(--dark); flex-direction:column; text-align:center; overflow:hidden; }
 .stars { position:absolute; inset:0; }
 .star { position:absolute; background:white; border-radius:50%; animation:twinkle var(--dur,3s) infinite alternate; }
 @keyframes twinkle { from{opacity:0.1;transform:scale(0.8)} to{opacity:0.9;transform:scale(1.2)} }
@@ -41,7 +41,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--gold),transparent); animation:scrollLine 1.5s infinite; }
 @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
 
-.chapter { padding:6rem 2rem; flex-direction:column; }
+.chapter { padding:6rem 2rem; flex-direction:column; overflow:hidden; }
 .chapter-inner { max-width:920px; width:100%; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
 .chapter-inner.reverse { direction:rtl; }
 .chapter-inner.reverse > * { direction:ltr; }
@@ -62,24 +62,67 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .visual-panel.visible { opacity:1; transform:scale(1); }
 .art-frame { aspect-ratio:3/4; border-radius:2px; position:relative; overflow:hidden; border:1px solid rgba(201,169,110,0.2); }
 
-#travel { background:#080d10; } #film { background:#0d0808; } #food { background:#0d0805; } #music { background:#080810; } #date-planner { background:#100c0a; }
+#travel { background:#080d10; } #photobooth { background:#141118; overflow: visible; } #food { background:#0d0805; } #music { background:#080810; } #date-planner { background:#100c0a; }
 .section-number { position:absolute; font-family:'Cormorant Garamond',serif; font-size:20vw; font-weight:300; color:rgba(255,255,255,0.02); top:50%; right:-2vw; transform:translateY(-50%); pointer-events:none; line-height:1; }
 
-.travel-art { background:linear-gradient(160deg,#0d1f2d 0%,#1a3a4a 40%,#0d2233 70%,#162030 100%); height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
-.globe-svg { width:75%; height:auto; opacity:0.25; }
-.pin-map { width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center; }
-.pin { position:absolute; display:flex; flex-direction:column; align-items:center; cursor:pointer; z-index:2; transform:translate(-50%,-100%); }
-.pin-dot { width:10px; height:10px; border-radius:50%; background:var(--gold); animation:pulse 2s infinite; }
-@keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(201,169,110,0.7)} 70%{box-shadow:0 0 0 10px rgba(201,169,110,0)} 100%{box-shadow:0 0 0 0 rgba(201,169,110,0)} }
-.pin-line { width:1px; height:16px; background:linear-gradient(to bottom,var(--gold),transparent); }
-.pin-tooltip { position:absolute; bottom:35px; background:rgba(13,10,8,0.95); border:1px solid rgba(201,169,110,0.3); padding:8px 14px; border-radius:2px; white-space:nowrap; font-size:11px; letter-spacing:1px; color:var(--gold); opacity:0; transition:opacity 0.2s; pointer-events:none; }
-.pin:hover .pin-tooltip { opacity:1; }
+/* CH 1: POLAROID DESK */
+.polaroid-desk { background: linear-gradient(135deg, #1c1511 0%, #0d0a08 100%); height: 100%; position: relative; overflow: hidden; box-shadow: inset 0 0 40px rgba(0,0,0,0.8); }
+.polaroid-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 900; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.polaroid-overlay.show { opacity: 1; pointer-events: auto; }
+.polaroid { position: absolute; width: 130px; height: 155px; perspective: 1000px; cursor: pointer; transform: rotate(var(--rot)) scale(1); transition: top 0.5s cubic-bezier(0.25, 1, 0.5, 1), left 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s; z-index: 1; }
+.polaroid:hover { transform: rotate(var(--rot)) scale(1.05); z-index: 10 !important; }
+.polaroid.active { top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) rotate(0deg) scale(2.2) !important; z-index: 1000 !important; cursor: pointer; }
+.polaroid.active:hover { transform: translate(-50%, -50%) rotate(0deg) scale(2.2) !important; }
+.polaroid-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; box-shadow: 2px 6px 15px rgba(0,0,0,0.4); border-radius: 2px; }
+.polaroid.flipped .polaroid-inner { transform: rotateY(180deg); box-shadow: -2px 6px 20px rgba(0,0,0,0.6); }
+.polaroid-front, .polaroid-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: #fdfbf7; padding: 8px; display: flex; flex-direction: column; border-radius: 2px; border: 1px solid rgba(0,0,0,0.1); }
+.polaroid-img { flex: 1; background: #ddd; width: 100%; box-shadow: inset 0 0 4px rgba(0,0,0,0.2); background-size: cover; background-position: center; }
+.polaroid-caption { font-family: 'Jost', sans-serif; font-size: 0.75rem; color: #222; text-align: center; padding-top: 8px; letter-spacing: 1px; font-weight: 400; text-transform: uppercase; }
+.polaroid-back { transform: rotateY(180deg); background: #f4efd8; padding: 15px; display: flex; align-items: center; justify-content: center; }
+.polaroid-note { font-family: 'Cormorant Garamond', cursive, serif; font-size: 1.1rem; color: #2a221b; line-height: 1.4; font-style: italic; text-align: center; }
 
-.film-art { background:linear-gradient(135deg,#1a0a0a 0%,#2d1010 50%,#1a1205 100%); height:100%; display:flex; flex-direction:column; overflow:hidden; }
-.film-strip { display:flex; flex-direction:column; gap:3px; padding:10px; height:100%; }
-.film-frame { flex:1; border:1px solid rgba(201,169,110,0.15); border-radius:1px; background:rgba(201,169,110,0.03); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:0.7rem; color:rgba(201,169,110,0.3); letter-spacing:1px; cursor:pointer; transition:all 0.3s; padding:0.5rem; text-align:center; }
-.film-frame:hover { background:rgba(201,169,110,0.08); color:rgba(201,169,110,0.8); border-color:rgba(201,169,110,0.4); }
+/* CH 2: REALISTIC PHOTOBOOTH */
+.pb-container { position: relative; width: 100%; max-width: 380px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.booth-machine { width: 100%; border-radius: 8px; background: linear-gradient(180deg, #3a3a42 0%, #1e1e24 100%); box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.1); border: 2px solid #111; display: flex; flex-direction: column; padding: 15px; position: relative; z-index: 10; }
+.booth-header { text-align: center; color: #ff5555; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 5px rgba(255,85,85,0.5); }
+.booth-screen-bezel { width: 100%; aspect-ratio: 4/3; background: #000; border-radius: 12px; border: 8px solid #111; box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 5px 10px rgba(0,0,0,0.5); position: relative; overflow: hidden; margin-bottom: 20px; }
+.pb-video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); display: none; }
+.pb-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 8rem; color: var(--gold); text-shadow: 0 0 20px rgba(0,0,0,0.8); display: none; z-index: 5; }
+.pb-flash { position: absolute; inset: 0; background: white; opacity: 0; transition: opacity 0.1s; pointer-events: none; z-index: 10; }
+.pb-scanlines { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1)); background-size: 100% 4px; pointer-events: none; z-index: 8; opacity: 0.5; }
 
+/* The Lever Setup */
+.booth-controls { background: #222; border-radius: 6px; padding: 15px; display: flex; align-items: center; justify-content: center; min-height: 90px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.6); position: relative; border: 1px solid #111; }
+.lever-area { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.lever-label { font-size: 0.65rem; letter-spacing: 2px; color: #aaa; }
+.lever-base { width: 60px; height: 100px; background: linear-gradient(180deg, #111 0%, #2a2a2a 50%, #111 100%); border-radius: 30px; box-shadow: inset 0 0 10px #000, 0 1px 1px #444; display: flex; justify-content: center; align-items: center; border: 2px solid #0a0a0a; position: relative; }
+.lever-track { width: 10px; height: 70px; background: #000; border-radius: 5px; position: relative; box-shadow: inset 0 0 5px rgba(0,0,0,1); }
+.lever-handle { position: absolute; top: -10px; left: -15px; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ff4d4d, #8a0000); cursor: pointer; transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 5px 10px rgba(0,0,0,0.8), inset 0 -2px 5px rgba(0,0,0,0.4); z-index: 2; }
+.lever-handle:hover { filter: brightness(1.1); }
+.lever-handle.pulled { top: 40px; transition: top 0.15s ease-in; }
+
+/* The Arcade Buttons */
+.layout-area { display: none; flex-direction: column; align-items: center; width: 100%; animation: fadeIn 0.5s; }
+.layout-btns { display: flex; gap: 15px; margin-bottom: 15px; }
+.arcade-btn { width: 50px; height: 50px; border-radius: 50%; border: none; background: linear-gradient(180deg, #555, #222); box-shadow: 0 6px 0 #111, 0 8px 15px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.2); cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.65rem; color: #aaa; font-weight: 600; letter-spacing: 1px; transition: all 0.1s; position: relative; display: flex; align-items: center; justify-content: center; }
+.arcade-btn:active, .arcade-btn.active { transform: translateY(6px); box-shadow: 0 0 0 #111, 0 2px 5px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.2); color: white; }
+.arcade-btn.active::after { content:''; position:absolute; inset: 2px; border-radius: 50%; box-shadow: 0 0 15px var(--gold); pointer-events: none; }
+.print-btn { background: linear-gradient(180deg, #d4847a, #9c4f46); color: white; border: none; padding: 12px 24px; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; border-radius: 4px; box-shadow: 0 6px 0 #5e2f2a, 0 8px 15px rgba(0,0,0,0.5); cursor: pointer; transition: all 0.1s; width: 100%; }
+.print-btn:active { transform: translateY(6px); box-shadow: 0 0 0 #5e2f2a, 0 2px 5px rgba(0,0,0,0.5); }
+
+/* The Output Preview */
+.pb-output-slot { position: relative; margin-top: -100px; transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 5; opacity: 0; pointer-events: none; display: flex; justify-content: center; width: 100%; }
+.pb-output-slot.show { margin-top: 15px; opacity: 1; pointer-events: auto; }
+.pb-strip-preview { background: #fdfbf7; padding: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.6); display: flex; gap: 4px; border: 1px solid rgba(0,0,0,0.1); }
+.pb-strip-preview img { object-fit: cover; border: 1px solid rgba(0,0,0,0.1); transform: scaleX(-1); }
+.layout-vertical { flex-direction: column; width: 90px; }
+.layout-vertical img { width: 100%; aspect-ratio: 4/3; }
+.layout-horizontal { flex-direction: row; height: 80px; }
+.layout-horizontal img { height: 100%; aspect-ratio: 4/3; }
+.layout-matrix { display: grid; grid-template-columns: 1fr 1fr; width: 140px; }
+.layout-matrix img { width: 100%; aspect-ratio: 4/3; }
+
+/* FOOD */
 .food-art { background:radial-gradient(circle at 60% 40%,#2d1a08 0%,#1a0e05 60%,#0d0805 100%); height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
 .recipe-cards { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; padding:20px; }
 .recipe-card { width:100%; padding:12px 16px; border:1px solid rgba(201,169,110,0.15); border-radius:2px; background:rgba(201,169,110,0.03); cursor:pointer; transition:all 0.3s; display:flex; align-items:center; gap:12px; }
@@ -88,6 +131,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .recipe-name { font-family:'Cormorant Garamond',serif; font-size:0.85rem; color:var(--cream); font-style:italic; }
 .recipe-note { font-size:0.65rem; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
 
+/* MUSIC / PLAYLIST */
 .music-art { background:linear-gradient(150deg,#0a0d1a 0%,#12102a 50%,#0d0a14 100%); height:100%; display:flex; flex-direction:column; position:relative; overflow:hidden; }
 .vinyl-deco { position:absolute; top:14px; right:14px; width:52px; height:52px; border-radius:50%; background:conic-gradient(#1a1a2e 0deg,#16213e 90deg,#0f3460 180deg,#1a1a2e 270deg,#16213e 360deg); box-shadow:0 0 16px rgba(201,169,110,0.15); display:flex; align-items:center; justify-content:center; z-index:2; }
 .vinyl-deco.spinning { animation:spin 5s linear infinite; }
@@ -117,6 +161,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .track-row:hover .track-play-btn, .track-row.active .track-play-btn { opacity:1; }
 .track-play-btn svg { fill:var(--gold); width:8px; height:8px; }
 
+/* NOW PLAYING BAR */
 .now-playing-bar { position:fixed; bottom:0; left:0; right:0; z-index:500; background:rgba(10,8,6,0.97); backdrop-filter:blur(20px); border-top:1px solid rgba(201,169,110,0.15); padding:10px 24px; display:flex; align-items:center; gap:16px; transform:translateY(100%); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
 .now-playing-bar.visible { transform:translateY(0); }
 .np-progress-bg { position:absolute; top:0; left:0; right:0; height:3px; background:rgba(201,169,110,0.15); cursor:pointer; }
@@ -135,6 +180,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .np-close { width:28px; height:28px; border-radius:50%; border:1px solid rgba(201,169,110,0.25); background:transparent; cursor:pointer; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:all 0.2s; font-size:13px; font-family:'Jost',sans-serif; }
 .np-close:hover { border-color:var(--gold); color:var(--gold); }
 
+/* JAZZ PILL */
 .jazz-pill { position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:400; background:rgba(10,8,6,0.88); backdrop-filter:blur(12px); border:1px solid rgba(201,169,110,0.2); border-radius:40px; padding:7px 16px; display:flex; align-items:center; gap:10px; opacity:0; transition:opacity 0.6s; pointer-events:none; }
 .jazz-pill.visible { opacity:1; }
 .jazz-waves { display:flex; gap:2px; align-items:center; height:12px; }
@@ -142,6 +188,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 @keyframes jazzWave { from{height:2px;opacity:0.3} to{height:12px;opacity:1} }
 .jazz-label { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
 
+/* DATE PLANNER */
 .date-art { background: linear-gradient(135deg, #100a12 0%, #1a1216 100%); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
 .step-view { display: none; width: 100%; animation: fadeIn 0.4s forwards; }
 .step-view.active { display: block; }
@@ -159,6 +206,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 .date-result-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--rose); margin-bottom: 12px; }
 .date-result-text { color: var(--gold); line-height: 1.8; font-size: 0.95rem; font-style: italic; }
 
+/* FINALE */
 #finale { background:radial-gradient(ellipse at center,#1a1005 0%,#0d0a08 60%); flex-direction:column; text-align:center; }
 .finale-content { position:relative; z-index:2; padding:2rem; max-width:650px; margin:0 auto; }
 .finale-eyebrow { font-size:10px; letter-spacing:6px; text-transform:uppercase; color:var(--gold); margin-bottom:2rem; opacity:0; transition:opacity 1s; }
@@ -183,7 +231,7 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 @media(max-width:700px) {
   .chapter-inner { grid-template-columns:1fr; gap:3rem; }
   .chapter-inner.reverse { direction:ltr; }
-  .visual-panel { max-height:320px; }
+  .visual-panel { max-height:450px; }
   .art-frame { aspect-ratio:4/3; }
   .now-playing-bar { padding:10px 14px; gap:10px; }
   .np-note { display:none; }
@@ -233,7 +281,7 @@ const MY_PLAYLIST = [
 <nav class="nav-dots">
   <div class="nav-dot active" onclick="scrollToSection('hero')"></div>
   <div class="nav-dot" onclick="scrollToSection('travel')"></div>
-  <div class="nav-dot" onclick="scrollToSection('film')"></div>
+  <div class="nav-dot" onclick="scrollToSection('photobooth')"></div>
   <div class="nav-dot" onclick="scrollToSection('food')"></div>
   <div class="nav-dot" onclick="scrollToSection('music')"></div>
   <div class="nav-dot" onclick="scrollToSection('date-planner')"></div>
@@ -301,56 +349,142 @@ const MY_PLAYLIST = [
       <p class="chapter-label">Chapter One</p>
       <h2 class="chapter-title">The <em>World</em> is Better<br>With You In It</h2>
       <div class="divider"></div>
-      <p class="chapter-text">Every new city we walk through, every horizon we chase together — you turn a map into a love letter. The adventures we've shared have been the best chapters of my life, and I can't wait to fill the next pages with you.</p>
+      <p class="chapter-text">Every new city we walk through, every horizon we chase together — you turn a map into a love letter. Click on our scattered memories to reveal the moments I hold closest.</p>
       <p class="chapter-quote">"Let's get lost somewhere beautiful together."</p>
     </div>
     <div class="visual-panel">
       <div class="art-frame">
-        <div class="travel-art">
-          <div class="pin-map">
-            <svg class="globe-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M50,120 Q80,90 120,100 Q150,95 170,110 Q190,120 180,150 Q170,175 150,180 Q120,185 100,170 Q70,160 50,140 Z" stroke="rgba(201,169,110,0.4)" stroke-width="1" fill="none"/>
-              <path d="M200,80 Q240,70 270,85 Q300,95 310,120 Q320,145 305,165 Q290,185 260,190 Q230,195 210,175 Q195,155 195,130 Q195,105 200,80 Z" stroke="rgba(201,169,110,0.4)" stroke-width="1" fill="none"/>
-              <path d="M185,195 Q200,185 220,195 Q235,205 230,225 Q225,245 210,250 Q195,252 185,240 Q178,228 180,212 Z" stroke="rgba(201,169,110,0.4)" stroke-width="1" fill="none"/>
-              <path d="M320,100 Q350,90 370,105 Q385,120 380,145 Q375,165 355,170 Q335,175 322,160 Q310,145 315,125 Z" stroke="rgba(201,169,110,0.4)" stroke-width="1" fill="none"/>
-              <path d="M100,195 Q130,188 155,200 Q170,210 168,230 Q165,250 148,258 Q130,265 115,255 Q100,242 98,222 Q96,207 100,195 Z" stroke="rgba(201,169,110,0.4)" stroke-width="1" fill="none"/>
-              <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(201,169,110,0.08)" stroke-width="1"/>
-              <line x1="200" y1="0" x2="200" y2="300" stroke="rgba(201,169,110,0.08)" stroke-width="1"/>
-              <ellipse cx="200" cy="150" rx="190" ry="140" stroke="rgba(201,169,110,0.06)" stroke-width="1" fill="none"/>
-              <ellipse cx="200" cy="150" rx="100" ry="140" stroke="rgba(201,169,110,0.05)" stroke-width="1" fill="none"/>
-            </svg>
-            <div class="pin" style="left:28%;top:52%"><div class="pin-dot"></div><div class="pin-line"></div><div class="pin-tooltip">Paris, France 🗼</div></div>
-            <div class="pin" style="left:58%;top:38%"><div class="pin-dot"></div><div class="pin-line"></div><div class="pin-tooltip">Kyoto, Japan 🌸</div></div>
-            <div class="pin" style="left:42%;top:68%"><div class="pin-dot"></div><div class="pin-line"></div><div class="pin-tooltip">Santorini, Greece 🏛️</div></div>
-            <div class="pin" style="left:72%;top:44%"><div class="pin-dot"></div><div class="pin-line"></div><div class="pin-tooltip">Bali, Indonesia 🌴</div></div>
+        <div class="polaroid-desk">
+          
+          <div class="polaroid-overlay" id="polaroidOverlay" onclick="closePolaroid(event)"></div>
+
+          <div class="polaroid" style="top: 15%; left: 10%; --rot: -12deg;" onclick="togglePolaroid(this)">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-img" style="background: linear-gradient(to bottom, #8ca8b9, #d3c4b1);"></div>
+                <div class="polaroid-caption">Paris 🗼</div>
+              </div>
+              <div class="polaroid-back">
+                <div class="polaroid-note">That rainy afternoon by the Seine. My favourite coffee date ever.</div>
+              </div>
+            </div>
           </div>
+
+          <div class="polaroid" style="top: 50%; left: 55%; --rot: 8deg;" onclick="togglePolaroid(this)">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-img" style="background: linear-gradient(to bottom, #d4a5a5, #e7cfc8);"></div>
+                <div class="polaroid-caption">Kyoto 🌸</div>
+              </div>
+              <div class="polaroid-back">
+                <div class="polaroid-note">Walking under the cherry blossoms. You looked stunning.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="polaroid" style="top: 45%; left: 15%; --rot: 18deg;" onclick="togglePolaroid(this)">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-img" style="background: linear-gradient(to bottom, #4a90e2, #f5f5f5);"></div>
+                <div class="polaroid-caption">Santorini 🏛️</div>
+              </div>
+              <div class="polaroid-back">
+                <div class="polaroid-note">Watching the sunset over the caldera. A perfect evening.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="polaroid" style="top: 10%; left: 45%; --rot: -5deg;" onclick="togglePolaroid(this)">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-img" style="background: linear-gradient(to bottom, #6b8e23, #c8d5b9);"></div>
+                <div class="polaroid-caption">Bali 🌴</div>
+              </div>
+              <div class="polaroid-back">
+                <div class="polaroid-note">Lost in the rice terraces, but exactly where I wanted to be.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="polaroid" style="top: 60%; left: 30%; --rot: -15deg;" onclick="togglePolaroid(this)">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-img" style="background: linear-gradient(to bottom, #7b9095, #c0d1d1);"></div>
+                <div class="polaroid-caption">The Mountains 🏔️</div>
+              </div>
+              <div class="polaroid-back">
+                <div class="polaroid-note">That early morning hike. The view was almost as beautiful as you.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="polaroid" style="top: 20%; left: 70%; --rot: 22deg;" onclick="togglePolaroid(this)">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-img" style="background: linear-gradient(to bottom, #2b1055, #7597de);"></div>
+                <div class="polaroid-caption">City Nights ✨</div>
+              </div>
+              <div class="polaroid-back">
+                <div class="polaroid-note">Dancing under the streetlights. A memory I'll never forget.</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="film" class="chapter">
+<section id="photobooth" class="chapter">
   <div class="section-number">02</div>
   <div class="chapter-inner reverse">
     <div class="chapter-text-col">
       <p class="chapter-label">Chapter Two</p>
-      <h2 class="chapter-title">Every <em>Scene</em><br>With You Is My<br>Favourite</h2>
+      <h2 class="chapter-title">Let's Make<br>A <em>Memory</em></h2>
       <div class="divider"></div>
-      <p class="chapter-text">From the films that made us cry to the ones we watched three times in a row — cinema is better beside you. You see the world like a cinematographer, finding beauty in every frame. Click our film memories below.</p>
-      <p class="chapter-quote">"In every story, you're the best plot twist."</p>
+      <p class="chapter-text">Every moment with you is worth capturing. Pull the lever below to activate the booth, smile for the camera, and print a custom photo strip of us right now.</p>
+      <p class="chapter-quote">"A picture is worth a thousand words."</p>
     </div>
     <div class="visual-panel">
-      <div class="art-frame">
-        <div class="film-art">
-          <div class="film-strip">
-            <div class="film-frame" onclick="showToast('🎬 The one that made you both cry happy tears')">Eternal Sunshine of the Spotless Mind</div>
-            <div class="film-frame" onclick="showToast('😍 You watched this 3 times in one week')">Amélie</div>
-            <div class="film-frame" onclick="showToast('🍿 Perfect for a rainy Sunday together')">Before Sunrise</div>
-            <div class="film-frame" onclick="showToast('🌟 Still talking about the ending')">La La Land</div>
-            <div class="film-frame" onclick="showToast('❤️ Still on the watchlist — soon?')">In the Mood for Love</div>
+      <div class="pb-container">
+        
+        <div class="booth-machine">
+          <div class="booth-header">• PHOTOBOOTH •</div>
+          
+          <div class="booth-screen-bezel">
+            <video class="pb-video" id="pbVideo" playsinline muted autoplay></video>
+            <div class="pb-scanlines"></div>
+            <div class="pb-overlay" id="pbOverlay"></div>
+            <div class="pb-flash" id="pbFlash"></div>
+          </div>
+
+          <div class="booth-controls">
+            <div class="lever-area" id="pbStartArea">
+              <div class="lever-label" id="pbLeverLabel">PULL TO START</div>
+              <div class="lever-base">
+                <div class="lever-track">
+                  <div class="lever-handle" id="pbLever" onclick="pullLever()"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="layout-area" id="pbLayoutArea">
+              <div class="lever-label" style="margin-bottom: 6px;">SELECT LAYOUT</div>
+              <div class="layout-btns">
+                <button class="arcade-btn active" id="btnLayoutV" onclick="setPbLayout('vertical')">VERT</button>
+                <button class="arcade-btn" id="btnLayoutH" onclick="setPbLayout('horizontal')">HORZ</button>
+                <button class="arcade-btn" id="btnLayoutM" onclick="setPbLayout('matrix')">GRID</button>
+              </div>
+              <button class="print-btn" onclick="downloadPhotoboothStrip()">PRINT STRIP</button>
+            </div>
           </div>
         </div>
+
+        <div class="pb-output-slot" id="pbOutputSlot">
+          <div class="pb-strip-preview layout-vertical" id="pbStrip"></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -472,7 +606,7 @@ document.querySelectorAll('.chapter-label,.chapter-title,.chapter-text,.chapter-
   new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('visible');},{threshold:0.15}).observe(el);
 });
 
-const sectionIds=['hero','travel','film','food','music','date-planner','finale'];
+const sectionIds=['hero','travel','photobooth','food','music','date-planner','finale'];
 const dotEls=document.querySelectorAll('.nav-dot');
 window.addEventListener('scroll',()=>{
   const mid=window.scrollY+window.innerHeight/2;
@@ -589,6 +723,203 @@ function beginStory(){
 }
 window.addEventListener('scroll',()=>startAmbientJazz(),{once:true});
 
+function togglePolaroid(el) {
+  if (!el.classList.contains('active')) {
+    document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active', 'flipped'));
+    document.getElementById('polaroidOverlay').classList.add('show');
+    el.classList.add('active');
+  } else {
+    el.classList.toggle('flipped');
+  }
+}
+
+function closePolaroid(e) {
+  if (e) e.stopPropagation();
+  document.getElementById('polaroidOverlay').classList.remove('show');
+  document.querySelectorAll('.polaroid').forEach(p => {
+    p.classList.remove('active', 'flipped');
+  });
+}
+
+// --- REALISTIC PHOTOBOOTH LOGIC ---
+let pbStream = null;
+let pbPhotos = [];
+let pbLayout = 'vertical';
+const PB_MAX = 4;
+
+function pullLever() {
+  const lever = document.getElementById('pbLever');
+  if(lever.classList.contains('pulled')) return;
+  
+  lever.classList.add('pulled');
+  document.getElementById('pbOutputSlot').classList.remove('show');
+  
+  setTimeout(() => {
+    lever.classList.remove('pulled');
+    startPhotobooth();
+  }, 600);
+}
+
+async function startPhotobooth() {
+  const video = document.getElementById('pbVideo');
+  const strip = document.getElementById('pbStrip');
+  
+  document.getElementById('pbStartArea').style.display = 'none';
+  document.getElementById('pbLayoutArea').style.display = 'none';
+  
+  strip.innerHTML = '';
+  pbPhotos = [];
+
+  try {
+    pbStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+    video.srcObject = pbStream;
+    video.style.display = 'block';
+    video.play();
+    setTimeout(takePbPhotos, 1500); 
+  } catch (err) {
+    showToast('⚠️ Camera access denied.');
+    document.getElementById('pbStartArea').style.display = 'flex';
+    document.getElementById('pbLeverLabel').textContent = "PULL TO RETRY";
+  }
+}
+
+async function takePbPhotos() {
+  const video = document.getElementById('pbVideo');
+  const overlay = document.getElementById('pbOverlay');
+  const flash = document.getElementById('pbFlash');
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  for (let i = 0; i < PB_MAX; i++) {
+    for (let c = 3; c > 0; c--) {
+      overlay.textContent = c;
+      overlay.style.display = 'flex';
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    overlay.style.display = 'none';
+
+    flash.style.opacity = '1';
+    setTimeout(() => flash.style.opacity = '0', 150);
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    pbPhotos.push(dataUrl);
+
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    document.getElementById('pbStrip').appendChild(img);
+
+    await new Promise(r => setTimeout(r, 800));
+  }
+
+  if (pbStream) pbStream.getTracks().forEach(t => t.stop());
+  video.style.display = 'none';
+  
+  document.getElementById('pbLayoutArea').style.display = 'flex';
+  
+  setTimeout(() => {
+     document.getElementById('pbOutputSlot').classList.add('show');
+  }, 200);
+}
+
+function setPbLayout(layout) {
+  pbLayout = layout;
+  document.getElementById('btnLayoutV').classList.remove('active');
+  document.getElementById('btnLayoutH').classList.remove('active');
+  document.getElementById('btnLayoutM').classList.remove('active');
+  
+  const preview = document.getElementById('pbStrip');
+  preview.className = 'pb-strip-preview layout-' + layout;
+
+  if(layout === 'vertical') document.getElementById('btnLayoutV').classList.add('active');
+  if(layout === 'horizontal') document.getElementById('btnLayoutH').classList.add('active');
+  if(layout === 'matrix') document.getElementById('btnLayoutM').classList.add('active');
+}
+
+function downloadPhotoboothStrip() {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  
+  const imgW = 600;
+  const imgH = 450;
+  const pad = 30;
+  const textHeight = 120;
+  
+  let canvasW, canvasH;
+
+  if (pbLayout === 'vertical') {
+    canvasW = imgW + (pad * 2);
+    canvasH = (imgH * PB_MAX) + (pad * (PB_MAX + 1)) + textHeight;
+  } else if (pbLayout === 'horizontal') {
+    canvasW = (imgW * PB_MAX) + (pad * (PB_MAX + 1));
+    canvasH = imgH + (pad * 2) + textHeight;
+  } else if (pbLayout === 'matrix') {
+    canvasW = (imgW * 2) + (pad * 3);
+    canvasH = (imgH * 2) + (pad * 3) + textHeight;
+  }
+
+  canvas.width = canvasW;
+  canvas.height = canvasH;
+
+  ctx.fillStyle = '#fcfaf5';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  let loaded = 0;
+  pbPhotos.forEach((url, i) => {
+    const img = new Image();
+    img.onload = () => {
+      let x, y;
+      
+      if (pbLayout === 'vertical') {
+         x = pad;
+         y = pad + (i * (imgH + pad));
+      } else if (pbLayout === 'horizontal') {
+         x = pad + (i * (imgW + pad));
+         y = pad;
+      } else if (pbLayout === 'matrix') {
+         const col = i % 2;
+         const row = Math.floor(i / 2);
+         x = pad + (col * (imgW + pad));
+         y = pad + (row * (imgH + pad));
+      }
+      
+      ctx.drawImage(img, x, y, imgW, imgH);
+      
+      ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x, y, imgW, imgH);
+
+      loaded++;
+      if (loaded === PB_MAX) {
+        ctx.fillStyle = '#0d0a08';
+        ctx.font = 'italic 40px "Cormorant Garamond", serif';
+        ctx.textAlign = 'center';
+        ctx.fillText("Our Story", canvas.width / 2, canvas.height - 70);
+        
+        ctx.font = '20px "Jost", sans-serif';
+        ctx.fillStyle = '#7a6a5a';
+        ctx.fillText("A Memory Captured", canvas.width / 2, canvas.height - 35);
+
+        const link = document.createElement('a');
+        link.download = `our-photobooth-${pbLayout}.jpeg`;
+        link.href = canvas.toDataURL('image/jpeg', 0.9);
+        link.click();
+        
+        document.getElementById('pbLayoutArea').style.display = 'none';
+        document.getElementById('pbStartArea').style.display = 'flex';
+        document.getElementById('pbLeverLabel').textContent = "PULL FOR MORE";
+      }
+    };
+    img.src = url;
+  });
+}
+
 let currentIdx=-1,playing=false;
 
 function buildPlaylist(){
@@ -617,9 +948,7 @@ function buildPlaylist(){
 buildPlaylist();
 
 const audioPlayer = document.getElementById('audio-player');
-
 audioPlayer.addEventListener('ended', () => nextTrack());
-
 audioPlayer.addEventListener('timeupdate', () => {
   if (!audioPlayer.duration) return;
   const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
@@ -859,7 +1188,6 @@ function renderDateNode(nodeId) {
     
     const input = document.createElement('input');
     input.type = 'text';
-    input.id = 'customDateInput';
     input.className = 'custom-input';
     input.placeholder = node.custom.placeholder || 'Choose your own...';
     
