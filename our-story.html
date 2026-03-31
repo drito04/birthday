@@ -246,34 +246,46 @@ section { min-height:100vh; display:flex; align-items:center; justify-content:ce
 <script>
 const MY_PLAYLIST = [
   {
-    title:  "La Vie en Rose",
-    artist: "Édith Piaf",
-    src:    "audio/song-1.mp3",
+    title:  "Ordinary",
+    artist: "Alex Warrren",
+    src:    "https://www.dropbox.com/scl/fi/0ehr7ji0ab779hr7gn6w7/Alex-Warren-Ordinary-Official-Video.mp3?rlkey=e23af9hh6mlgr8p3kdq29417h&st=inr4hni1&raw=1",
     note:   "This one always makes me think of you ✨"
   },
   {
-    title:  "The Way You Look Tonight",
-    artist: "Frank Sinatra",
-    src:    "audio/song-2.mp3",
-    note:   "Every single night, without exception 🌙"
+    title:  "Akhiyaan",
+    artist: "Mitraz",
+    src:    "https://www.dropbox.com/scl/fi/wxbs3498d1t4cj861gl4w/Akhiyaan.mp3?rlkey=w31tah2gwe0qfxmjood0axnnr&st=uhl4vwsf&raw=1",
+    note:   "Our road trip anthem in the past, now, forever 🚗"
   },
   {
     title:  "Finding Her",
-    artist: "Frank Sinatra",
-    src:    "audio/song-3.mp3",
-    note:   "Our road trip anthem 🚗"
+    artist: "Kushagra",
+    src:    "https://www.dropbox.com/scl/fi/m70cn69may7s9nnjbxi8d/Finding-Her-Official-Video-_-Kushagra-Vanshika-Kashyap-Bharat-UR-Debut.mp3?rlkey=zb01jd388o0e4geo88d9ois7u&st=rcwteikx&raw=1",
+    note:   "I want to hear this on repeat with you, in our cozy little home 🏡"
   },
   {
-    title:  "What a Wonderful World",
-    artist: "Louis Armstrong",
-    src:    "audio/song-4.mp3",
-    note:   "Because it is, with you in it 🌍"
+    title:  "Don't even text",
+    artist: "Tsumyoki & GINI",
+    src:    "https://www.dropbox.com/scl/fi/9x1jtuv0jo3zgll21iw88/Don-t-Even-Text.mp3?rlkey=u4t4kimniosan6mqeuvakzg2a&st=5q1zkd2l&raw=1",
+    note:   "Because it is, like us"
   },
   {
-    title:  "At Last",
-    artist: "Etta James",
-    src:    "audio/song-5.mp3",
-    note:   "At last… I found you 💛"
+    title:  "Oviman",
+    artist: "Tanveer Evan",
+    src:    "https://www.dropbox.com/scl/fi/re8mi3unun0sxxvthenmp/Oviman.mp3?rlkey=2uos4t53whnnzdp5l7zlepjbw&st=szmouikw&raw=1",
+    note:   "When we have our little fights, for that time 💛"
+  },
+  {
+    title:  "Sajni",
+    artist: "Arijit Singh",
+    src:    "https://www.dropbox.com/scl/fi/7aczcq8htajyici3e0mhq/Sajni.mp3?rlkey=hbt2tcz4hkw7f3uyxip489rkw&st=2v8zh39v&raw=1",
+    note:   "Our all time favorite"
+  },
+  {
+    title:  "Sahiba",
+    artist: "Aditya Rikhari",
+    src:    "https://www.dropbox.com/scl/fi/v4wvbm1jm1ltwolaeuok0/Sahiba.mp3?rlkey=nbp7vzgryt93t19t4kkctkng6&st=e82ogupy&raw=1",
+    note:   "When I want to feel close to you, even when we're apart 💫"
   }
 ];
 </script>
@@ -353,7 +365,7 @@ const MY_PLAYLIST = [
       <h2 class="chapter-title">The <em>World</em> is Better<br>With You In It</h2>
       <div class="divider"></div>
       <p class="chapter-text">Every new city we walk through, every horizon we chase together — you turn a map into a love letter. Click on our scattered memories to reveal the moments I hold closest.</p>
-      <p class="chapter-quote">"Let's get lost somewhere beautiful together."</p>
+      <p class="chapter-quote">"Let's keep making these beautiful memories together."</p>
     </div>
     <div class="visual-panel">
       <div class="art-frame">
@@ -364,11 +376,11 @@ const MY_PLAYLIST = [
           <div class="polaroid" style="top: 15%; left: 10%; --rot: -12deg;" onclick="togglePolaroid(this)">
             <div class="polaroid-inner">
               <div class="polaroid-front">
-                <div class="polaroid-img" style="background: linear-gradient(to bottom, #8ca8b9, #d3c4b1);"></div>
-                <div class="polaroid-caption">Paris 🗼</div>
+                <div class="polaroid-img" style="background-image: url('https://www.dropbox.com/scl/fi/q2faffcxbnvfytglvvcl7/firstphoto.jpg?rlkey=prthe26xgi3c11w16trumel9d&st=afbzzwhc&raw=1');"></div>
+                <div class="polaroid-caption">Our very first photo</div>
               </div>
               <div class="polaroid-back">
-                <div class="polaroid-note">That rainy afternoon by the Seine. My favourite coffee date ever.</div>
+                <div class="polaroid-note">That rainy afternoon when we were both drenched but still smiling.</div>
               </div>
             </div>
           </div>
@@ -376,11 +388,11 @@ const MY_PLAYLIST = [
           <div class="polaroid" style="top: 50%; left: 55%; --rot: 8deg;" onclick="togglePolaroid(this)">
             <div class="polaroid-inner">
               <div class="polaroid-front">
-                <div class="polaroid-img" style="background: linear-gradient(to bottom, #d4a5a5, #e7cfc8);"></div>
-                <div class="polaroid-caption">Kyoto 🌸</div>
+                <div class="polaroid-img" style="background-image: url('https://www.dropbox.com/scl/fi/pydwuwgo4sk2fmbppjvyb/firstdate.jpg?rlkey=9b2aznpu3s5xi2m1mpi0tn9j4&st=cfsgzbc3&raw=1');"></div>
+                <div class="polaroid-caption">First Date as friends</div>
               </div>
               <div class="polaroid-back">
-                <div class="polaroid-note">Walking under the cherry blossoms. You looked stunning.</div>
+                <div class="polaroid-note">A chaotic day of outing, playing, eating... defined who we are today.</div>
               </div>
             </div>
           </div>
@@ -388,11 +400,11 @@ const MY_PLAYLIST = [
           <div class="polaroid" style="top: 45%; left: 15%; --rot: 18deg;" onclick="togglePolaroid(this)">
             <div class="polaroid-inner">
               <div class="polaroid-front">
-                <div class="polaroid-img" style="background: linear-gradient(to bottom, #4a90e2, #f5f5f5);"></div>
-                <div class="polaroid-caption">Santorini 🏛️</div>
+                <div class="polaroid-img" style="background-image: url('https://www.dropbox.com/scl/fi/1n97lzxb2t9f2mmuj8tmf/firstrelndate.jpg?rlkey=hje7b205wy26gl5p8izyy1b5b&st=t2fo47vl&raw=1');"></div>
+                <div class="polaroid-caption">First Date as a couple</div>
               </div>
               <div class="polaroid-back">
-                <div class="polaroid-note">Watching the sunset over the caldera. A perfect evening.</div>
+                <div class="polaroid-note">The one evening that started it all for us.</div>
               </div>
             </div>
           </div>
@@ -400,11 +412,11 @@ const MY_PLAYLIST = [
           <div class="polaroid" style="top: 10%; left: 45%; --rot: -5deg;" onclick="togglePolaroid(this)">
             <div class="polaroid-inner">
               <div class="polaroid-front">
-                <div class="polaroid-img" style="background: linear-gradient(to bottom, #6b8e23, #c8d5b9);"></div>
-                <div class="polaroid-caption">Bali 🌴</div>
+                <div class="polaroid-img" style="background-image: url('https://www.dropbox.com/scl/fi/2u0t3hce1ncw1fvw17vi8/firstmov.jpeg?rlkey=td33n51dtaqwrft7vhep6gymi&st=t7vko8mn&raw=1');"></div>
+                <div class="polaroid-caption">First movie together</div>
               </div>
               <div class="polaroid-back">
-                <div class="polaroid-note">Lost in the rice terraces, but exactly where I wanted to be.</div>
+                <div class="polaroid-note">Lost in your eyes and forgot about the movie altogether.</div>
               </div>
             </div>
           </div>
@@ -412,11 +424,11 @@ const MY_PLAYLIST = [
           <div class="polaroid" style="top: 60%; left: 30%; --rot: -15deg;" onclick="togglePolaroid(this)">
             <div class="polaroid-inner">
               <div class="polaroid-front">
-                <div class="polaroid-img" style="background: linear-gradient(to bottom, #7b9095, #c0d1d1);"></div>
-                <div class="polaroid-caption">The Mountains 🏔️</div>
+                <div class="polaroid-img" style="background-image: url('https://www.dropbox.com/scl/fi/n2i6hs9x2doq0cut8n61m/firstkol.jpeg?rlkey=6yx4dkr7t9emfo7wag3k02ywg&st=suyqebsb&raw=1');"></div>
+                <div class="polaroid-caption">First time in kolkata together</div>
               </div>
               <div class="polaroid-back">
-                <div class="polaroid-note">That early morning hike. The view was almost as beautiful as you.</div>
+                <div class="polaroid-note">Starting of a beautiful journey of growth and fun.</div>
               </div>
             </div>
           </div>
@@ -424,11 +436,11 @@ const MY_PLAYLIST = [
           <div class="polaroid" style="top: 20%; left: 70%; --rot: 22deg;" onclick="togglePolaroid(this)">
             <div class="polaroid-inner">
               <div class="polaroid-front">
-                <div class="polaroid-img" style="background: linear-gradient(to bottom, #2b1055, #7597de);"></div>
-                <div class="polaroid-caption">City Nights ✨</div>
+                <div class="polaroid-img" style="background-image: url('https://www.dropbox.com/scl/fi/92h72ndbe4jdwy61k66y5/firstpujo.jpeg?rlkey=m3io9izzglsps5h11nhxo6ae3&st=8p1eimgt&raw=1');"></div>
+                <div class="polaroid-caption">First pujo together</div>
               </div>
               <div class="polaroid-back">
-                <div class="polaroid-note">Dancing under the streetlights. A memory I'll never forget.</div>
+                <div class="polaroid-note">The day I saw you looking this beautiful for the first time.</div>
               </div>
             </div>
           </div>
@@ -1054,7 +1066,7 @@ document.addEventListener('keydown', (e) => {
 
 const dateTree = {
   start: {
-    q: "What's the vibe for tonight?",
+    q: "What's the vibe for the day?",
     options: [
       { text: "Stay In", next: "stayInFood" },
       { text: "Go Out", next: "goOutFood" }
@@ -1115,7 +1127,7 @@ const dateTree = {
     custom: { next: "stayInAfter", placeholder: "Suggest an activity..." }
   },
   stayInAfter: {
-    q: "How are we ending the night?",
+    q: "How are we ending the day?",
     options: [
       { text: "Stay in and cuddle", result: true },
       { text: "Go out for walk", result: true }
